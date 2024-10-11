@@ -54,6 +54,11 @@ export const addMessage = createAsyncThunk<Message, { userId: String, messageDat
     return res.data.messageVal;
 });
 
+//adding message received from user through socket
+export const addMessageRec = createAsyncThunk<Message,Message>('chat/addMessageRec', async (messageData) => {
+
+return messageData;
+});
 
 
 
@@ -98,6 +103,13 @@ const chatSlice = createSlice({
             })
             .addCase(addMessage.rejected, (state, action) => {
                 console.log('Error in adding message',action.payload);
+            })
+            .addCase(addMessageRec.fulfilled, (state, action: PayloadAction<Message>) => {
+                state.messages.push(action.payload);                //we are returning only one message. So action.payload itself is message.
+                console.log("Messages from chatslice ",state.messages)
+            })
+            .addCase(addMessageRec.rejected, (state, action) => {
+                console.log('Error in adding received message',action.payload);
             })
     }
 })

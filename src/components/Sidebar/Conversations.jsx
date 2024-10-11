@@ -2,6 +2,7 @@ import {useState ,useEffect } from 'react'
 import { Conversation } from './Conversation.jsx'
 import api from '../../apis.jsx'
 import { useGlobalContext } from '../../context/useContext.jsx'
+import { useSocketContext } from '../../context/socketContext.jsx'
 
 // export const Conversations =  () => {
 //   const {globalState,setGlobalState}=useGlobalContext();
@@ -23,6 +24,8 @@ import { useGlobalContext } from '../../context/useContext.jsx'
   
 export const Conversations = () => {
   const { globalState, setGlobalState } = useGlobalContext();
+  const {onlineUsers}=useSocketContext();
+  console.log("Online users in conversations",onlineUsers)
 
   const getFriends = async () => {
       try {
@@ -71,7 +74,8 @@ export const Conversations = () => {
       <Conversation name="hello"/>
       <Conversation name="Teja"/> */}
       {globalState.friends?.map((x)=>(
-        <Conversation key={x._id} name={x.userName} friendId={x._id}/>
+        <Conversation key={x._id} name={x.userName} friendId={x._id} isOnline={onlineUsers.includes(x._id)}/>
+        // isOnline={()=>{onlineUsers.includes(globalState.friendId)}}
       ))}
     </div>
   )
