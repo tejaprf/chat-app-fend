@@ -16,7 +16,7 @@ export const SocketContextProvider=({children})=>{
         if(globalState.isAuth){
             console.log(globalState)
             // import.meta.env.VITE_BACKEND_URL
-            const socket=io("http://localhost:5000",{query:{
+            const socket=io(import.meta.env.VITE_BACKEND_URL,{query:{
                 userId: globalState.id,
             }});
             setSocket(socket)
