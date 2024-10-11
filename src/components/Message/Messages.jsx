@@ -145,15 +145,7 @@ export const Messages = () => {
     };
   }, [dispatch, globalState.friendId, socket]);
 
-  useEffect(() => {
-    const container = document.getElementById('message-container');
-    if (container) {
-      container.scrollTop = container.scrollHeight; // Scroll to bottom
-      console.log("Scrolled to bottom");
-    } else {
-      console.log("Container not found");
-    }
-  }, [messages]);
+
 
   return (
       <div
